@@ -22,25 +22,25 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
     int str2len = str2.length();
     if(abs(str2len-str1len) > d)
         return false;
-    int ds[str1len+1][str2len+1];
+    vector<vector<int>> dist(str1len+1, vector<int>(str2len+1));
     for(int i = 0; i <= str1len; ++i)
-        ds[i][0] = i;
+        dist[i][0] = i;
     for(int j = 0; j <= str2len; ++j)
-        ds[0][j] = j;
+        dist[0][j] = j;
     
     for(int i = 1; i <= str1len; ++i)
     {
         for(int j = 1; j <= str2len; ++j)
         {
             if(str1[i-1]==str2[j-1])
-                ds[i][j] = ds[i-1][j-1];
+                dist[i][j] = dist[i-1][j-1];
             else
             {
-                ds[i][j] = min(ds[i-1][j], min(ds[i][j-1], ds[i-1][j-1])) + 1;
+                dist[i][j] = min(dist[i-1][j], min(dist[i][j-1], dist[i-1][j-1])) + 1;
             }
         }
     }
-    return ds[str1len][str2len] <= d;
+    return dist[str1len][str2len] <= d;
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list)
