@@ -5,10 +5,10 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
 {
     size_t n = G.numVertices;
     vector<int> distance(n, INT_MAX);
-    previous.resize(n, -1);
+    previous.assign(n, -1);
     vector<bool> visited(n, false);
-    priority_queue<pair<int, int>> minHeap;
-    minHeap.push({source, 0});
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> minHeap;
+    minHeap.push({0, source});
     distance[source] = 0;
     while(!minHeap.empty())
     {

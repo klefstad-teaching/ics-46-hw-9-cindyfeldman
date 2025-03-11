@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
     Graph G;
-    file_to_graph("src/largest.txt",  G);
+    file_to_graph("src/small.txt",  G);
     vector<int> distance(G.numVertices, -1);
     vector<int> prev(G.numVertices, -1);
     distance = dijkstra_shortest_path(G, 0, prev);
